@@ -86,10 +86,10 @@ const Index = () => {
 
   return (
     <div className="relative h-screen w-screen overflow-hidden">
-      {/* Scrolling gradient background - only visible on desktop */}
+      {/* Full-screen scrolling gradient background */}
       <div
         ref={scrollContainerRef}
-        className="absolute inset-0 hide-scrollbar overflow-y-scroll hidden md:block md:w-1/2"
+        className="absolute inset-0 hide-scrollbar overflow-y-scroll"
         style={{ scrollSnapType: "y mandatory" }}
       >
         {allSections.map((gradient, index) => (
@@ -101,40 +101,37 @@ const Index = () => {
         ))}
       </div>
 
-      {/* Static gradient for mobile */}
-      <div className="absolute inset-0 md:hidden bg-gradient-to-br from-[hsl(var(--gradient-1-start))] to-[hsl(var(--gradient-3-end))] animate-gradient" />
-
-      {/* Section indicators - desktop only */}
-      <div className="hidden md:flex fixed left-6 top-1/2 -translate-y-1/2 flex-col gap-2 z-20">
+      {/* Section indicators */}
+      <div className="fixed left-6 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-20">
         {gradientClasses.map((_, index) => (
           <button
             key={index}
             onClick={() => scrollToSection(index)}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
               currentSection === index
-                ? "bg-[hsl(var(--glass-border))] scale-125"
-                : "bg-[hsl(var(--glass-border)/0.4)] hover:bg-[hsl(var(--glass-border)/0.7)]"
+                ? "bg-white scale-125"
+                : "bg-white/40 hover:bg-white/70"
             }`}
             aria-label={`Go to section ${index + 1}`}
           />
         ))}
       </div>
 
-      {/* Login form container */}
-      <div className="absolute inset-0 md:left-1/2 md:w-1/2 flex items-center justify-center p-6">
-        <Card className="w-full max-w-md bg-[hsl(var(--glass-bg)/0.15)] backdrop-blur-xl border-[hsl(var(--glass-border)/0.2)] shadow-[0_8px_32px_hsl(var(--glass-shadow)/0.3)] rounded-2xl">
+      {/* Login form container - positioned on right half on desktop, centered on mobile */}
+      <div className="fixed inset-0 flex items-center justify-center md:justify-end p-6 md:pr-12 lg:pr-24 z-10">
+        <Card className="w-full max-w-md bg-white/10 backdrop-blur-xl border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.3)] rounded-2xl">
           <CardHeader className="space-y-1 text-center">
-            <CardTitle className="text-2xl font-bold text-primary-foreground">
+            <CardTitle className="text-2xl font-bold text-white">
               Welcome Back
             </CardTitle>
-            <CardDescription className="text-primary-foreground/70">
+            <CardDescription className="text-white/70">
               Enter your credentials to sign in
             </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="email" className="text-primary-foreground/90">
+                <Label htmlFor="email" className="text-white/90">
                   Email
                 </Label>
                 <Input
@@ -143,12 +140,12 @@ const Index = () => {
                   placeholder="name@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-[hsl(var(--glass-bg)/0.1)] border-[hsl(var(--glass-border)/0.2)] text-primary-foreground placeholder:text-primary-foreground/50 focus:border-[hsl(var(--glass-border)/0.5)] focus:ring-[hsl(var(--glass-border)/0.3)] transition-all duration-200"
+                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-white/50 focus:ring-white/30 transition-all duration-200"
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password" className="text-primary-foreground/90">
+                <Label htmlFor="password" className="text-white/90">
                   Password
                 </Label>
                 <Input
@@ -157,13 +154,13 @@ const Index = () => {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="bg-[hsl(var(--glass-bg)/0.1)] border-[hsl(var(--glass-border)/0.2)] text-primary-foreground placeholder:text-primary-foreground/50 focus:border-[hsl(var(--glass-border)/0.5)] focus:ring-[hsl(var(--glass-border)/0.3)] transition-all duration-200"
+                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-white/50 focus:ring-white/30 transition-all duration-200"
                   required
                 />
               </div>
               <Button
                 type="submit"
-                className="w-full bg-[hsl(var(--glass-bg)/0.2)] hover:bg-[hsl(var(--glass-bg)/0.3)] text-primary-foreground border border-[hsl(var(--glass-border)/0.3)] backdrop-blur-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
               >
                 Sign In
               </Button>
