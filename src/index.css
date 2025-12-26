@@ -39,20 +39,34 @@ All colors MUST be HSL.
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Gradient sections - Cool Blues & Purples */
+    --gradient-1-start: 250 70% 20%;
+    --gradient-1-end: 280 60% 35%;
+    
+    --gradient-2-start: 200 80% 25%;
+    --gradient-2-end: 230 70% 40%;
+    
+    --gradient-3-start: 270 65% 25%;
+    --gradient-3-end: 300 55% 45%;
+    
+    --gradient-4-start: 220 75% 20%;
+    --gradient-4-end: 250 65% 38%;
+    
+    --gradient-5-start: 240 70% 18%;
+    --gradient-5-end: 280 60% 30%;
+
+    /* Glassmorphism */
+    --glass-bg: 0 0% 100%;
+    --glass-border: 0 0% 100%;
+    --glass-shadow: 240 60% 30%;
   }
 
   .dark {
@@ -91,6 +105,27 @@ All colors MUST be HSL.
     --sidebar-accent-foreground: 240 4.8% 95.9%;
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Gradient sections - Cool Blues & Purples (Dark mode) */
+    --gradient-1-start: 250 70% 15%;
+    --gradient-1-end: 280 60% 30%;
+    
+    --gradient-2-start: 200 80% 18%;
+    --gradient-2-end: 230 70% 35%;
+    
+    --gradient-3-start: 270 65% 18%;
+    --gradient-3-end: 300 55% 38%;
+    
+    --gradient-4-start: 220 75% 15%;
+    --gradient-4-end: 250 65% 32%;
+    
+    --gradient-5-start: 240 70% 12%;
+    --gradient-5-end: 280 60% 25%;
+
+    /* Glassmorphism (Dark mode) */
+    --glass-bg: 240 20% 15%;
+    --glass-border: 240 30% 40%;
+    --glass-shadow: 240 60% 10%;
   }
 }
 
@@ -102,4 +137,29 @@ All colors MUST be HSL.
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Hide scrollbar but keep functionality */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Gradient animation */
+@keyframes gradient-shift {
+  0%, 100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
 }
