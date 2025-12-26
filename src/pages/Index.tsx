@@ -17,64 +17,78 @@ const Index = () => {
   const [password, setPassword] = useState("");
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [currentSection, setCurrentSection] = useState(0);
-  const isScrolling = useRef(false);
+  const isScrollingRef = useRef(false);
+  const currentSectionRef = useRef(0);
   const totalSections = gradientClasses.length;
 
+  // Keep ref in sync with state
+  useEffect(() => {
+    currentSectionRef.current = currentSection;
+  }, [currentSection]);
+
   const scrollToSection = useCallback((index: number) => {
-    if (!scrollContainerRef.current || isScrolling.current) return;
-    
-    isScrolling.current = true;
     const container = scrollContainerRef.current;
-    const sectionHeight = window.innerHeight;
-    
-    // Handle infinite loop
-    let targetIndex = index;
-    if (index >= totalSections * 2) {
-      targetIndex = totalSections;
-    } else if (index < totalSections) {
-      targetIndex = totalSections + index;
+    if (!container || isScrollingRef.current) {
+      console.log("Scroll blocked:", { container: !!container, isScrolling: isScrollingRef.current });
+      return;
     }
     
+    console.log("Scrolling to section:", index);
+    isScrollingRef.current = true;
+    const sectionHeight = window.innerHeight;
+    
+    // Normalize index for infinite loop
+    const normalizedIndex = ((index % totalSections) + totalSections) % totalSections;
+    const targetScrollTop = (totalSections + normalizedIndex) * sectionHeight;
+    
+    console.log("Target scroll:", { normalizedIndex, targetScrollTop, sectionHeight });
+    
     container.scrollTo({
-      top: targetIndex * sectionHeight,
+      top: targetScrollTop,
       behavior: "smooth",
     });
     
-    setCurrentSection(index % totalSections);
+    setCurrentSection(normalizedIndex);
     
     setTimeout(() => {
-      isScrolling.current = false;
-      // Reset position for infinite loop
-      if (targetIndex >= totalSections * 2 - 1) {
-        container.scrollTop = totalSections * sectionHeight;
-      } else if (targetIndex <= totalSections) {
-        container.scrollTop = totalSections * sectionHeight;
-      }
-    }, 500);
+      isScrollingRef.current = false;
+      console.log("Scroll complete, unlocked");
+    }, 600);
   }, [totalSections]);
-
-  const handleWheel = useCallback((e: WheelEvent) => {
-    e.preventDefault();
-    if (isScrolling.current) return;
-    
-    const direction = e.deltaY > 0 ? 1 : -1;
-    const nextSection = currentSection + direction;
-    scrollToSection((nextSection + totalSections) % totalSections);
-  }, [currentSection, scrollToSection, totalSections]);
 
   useEffect(() => {
     const container = scrollContainerRef.current;
     if (!container) return;
 
     // Initialize scroll position to middle set for infinite loop
-    container.scrollTop = totalSections * window.innerHeight;
+    const initialScrollTop = totalSections * window.innerHeight;
+    container.scrollTop = initialScrollTop;
+    console.log("Initialized scroll position:", initialScrollTop);
 
-    container.addEventListener("wheel", handleWheel, { passive: false });
+    const handleWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      
+      if (isScrollingRef.current) {
+        console.log("Wheel event ignored - already scrolling");
+        return;
+      }
+      
+      const direction = e.deltaY > 0 ? 1 : -1;
+      const current = currentSectionRef.current;
+      const nextSection = current + direction;
+      
+      console.log("Wheel event:", { deltaY: e.deltaY, direction, current, nextSection });
+      
+      scrollToSection(nextSection);
+    };
+
+    // Add wheel listener to the document to capture all wheel events
+    document.addEventListener("wheel", handleWheel, { passive: false });
     
     return () => {
-      container.removeEventListener("wheel", handleWheel);
+      document.removeEventListener("wheel", handleWheel);
     };
-  }, [handleWheel, totalSections]);
+  }, [scrollToSection, totalSections]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
