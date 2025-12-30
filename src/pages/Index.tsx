@@ -3,23 +3,31 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import WorkflowBackground from "@/components/backgrounds/WorkflowBackground";
+import DataFlowBackground from "@/components/backgrounds/DataFlowBackground";
+import SecurityBackground from "@/components/backgrounds/SecurityBackground";
+import IntegrationBackground from "@/components/backgrounds/IntegrationBackground";
+import AnalyticsBackground from "@/components/backgrounds/AnalyticsBackground";
 
-const gradientClasses = [
-  "bg-gradient-to-br from-[hsl(var(--gradient-1-start))] to-[hsl(var(--gradient-1-end))]",
-  "bg-gradient-to-br from-[hsl(var(--gradient-2-start))] to-[hsl(var(--gradient-2-end))]",
-  "bg-gradient-to-br from-[hsl(var(--gradient-3-start))] to-[hsl(var(--gradient-3-end))]",
-  "bg-gradient-to-br from-[hsl(var(--gradient-4-start))] to-[hsl(var(--gradient-4-end))]",
-  "bg-gradient-to-br from-[hsl(var(--gradient-5-start))] to-[hsl(var(--gradient-5-end))]",
+const backgroundComponents = [
+  WorkflowBackground,
+  DataFlowBackground,
+  SecurityBackground,
+  IntegrationBackground,
+  AnalyticsBackground,
 ];
 
 const Index = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [currentSection, setCurrentSection] = useState(0);
   const isScrollingRef = useRef(false);
   const currentSectionRef = useRef(0);
-  const totalSections = gradientClasses.length;
+  const autoScrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isPausedRef = useRef(false);
+  
+  const totalSections = backgroundComponents.length;
 
   // Keep ref in sync with state
   useEffect(() => {
@@ -27,103 +35,113 @@ const Index = () => {
   }, [currentSection]);
 
   const scrollToSection = useCallback((index: number) => {
-    const container = scrollContainerRef.current;
-    if (!container || isScrollingRef.current) {
-      console.log("Scroll blocked:", { container: !!container, isScrolling: isScrollingRef.current });
-      return;
-    }
+    if (isScrollingRef.current) return;
     
-    console.log("Scrolling to section:", index);
     isScrollingRef.current = true;
-    const sectionHeight = window.innerHeight;
     
-    // Normalize index for infinite loop
     const normalizedIndex = ((index % totalSections) + totalSections) % totalSections;
-    const targetScrollTop = (totalSections + normalizedIndex) * sectionHeight;
-    
-    console.log("Target scroll:", { normalizedIndex, targetScrollTop, sectionHeight });
-    
-    container.scrollTo({
-      top: targetScrollTop,
-      behavior: "smooth",
-    });
-    
     setCurrentSection(normalizedIndex);
     
     setTimeout(() => {
       isScrollingRef.current = false;
-      console.log("Scroll complete, unlocked");
     }, 600);
   }, [totalSections]);
 
-  useEffect(() => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    // Initialize scroll position to middle set for infinite loop
-    const initialScrollTop = totalSections * window.innerHeight;
-    container.scrollTop = initialScrollTop;
-    console.log("Initialized scroll position:", initialScrollTop);
-
-    const handleWheel = (e: WheelEvent) => {
-      e.preventDefault();
-      
-      if (isScrollingRef.current) {
-        console.log("Wheel event ignored - already scrolling");
-        return;
+  // Auto-scroll functionality
+  const startAutoScroll = useCallback(() => {
+    if (autoScrollIntervalRef.current) {
+      clearInterval(autoScrollIntervalRef.current);
+    }
+    
+    autoScrollIntervalRef.current = setInterval(() => {
+      if (!isPausedRef.current && !isScrollingRef.current) {
+        const nextSection = (currentSectionRef.current + 1) % totalSections;
+        scrollToSection(nextSection);
       }
-      
-      const direction = e.deltaY > 0 ? 1 : -1;
-      const current = currentSectionRef.current;
-      const nextSection = current + direction;
-      
-      console.log("Wheel event:", { deltaY: e.deltaY, direction, current, nextSection });
-      
-      scrollToSection(nextSection);
-    };
+    }, 4000); // Auto-scroll every 4 seconds
+  }, [scrollToSection, totalSections]);
 
-    // Add wheel listener to the document to capture all wheel events
+  // Pause auto-scroll on user interaction
+  const pauseAutoScroll = useCallback(() => {
+    isPausedRef.current = true;
+    
+    if (pauseTimeoutRef.current) {
+      clearTimeout(pauseTimeoutRef.current);
+    }
+    
+    pauseTimeoutRef.current = setTimeout(() => {
+      isPausedRef.current = false;
+    }, 5000); // Resume after 5 seconds
+  }, []);
+
+  // Handle wheel scroll
+  const handleWheel = useCallback((e: WheelEvent) => {
+    // Only handle wheel on left side (background area)
+    const target = e.target as HTMLElement;
+    if (target.closest('.login-form-container')) return;
+    
+    e.preventDefault();
+    pauseAutoScroll();
+    
+    if (isScrollingRef.current) return;
+    
+    const direction = e.deltaY > 0 ? 1 : -1;
+    const nextSection = currentSectionRef.current + direction;
+    scrollToSection(nextSection);
+  }, [scrollToSection, pauseAutoScroll]);
+
+  // Initialize auto-scroll
+  useEffect(() => {
+    startAutoScroll();
+    
     document.addEventListener("wheel", handleWheel, { passive: false });
     
     return () => {
       document.removeEventListener("wheel", handleWheel);
+      if (autoScrollIntervalRef.current) {
+        clearInterval(autoScrollIntervalRef.current);
+      }
+      if (pauseTimeoutRef.current) {
+        clearTimeout(pauseTimeoutRef.current);
+      }
     };
-  }, [scrollToSection, totalSections]);
+  }, [handleWheel, startAutoScroll]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Login attempt:", { email, password });
   };
 
-  // Create triple sections for infinite loop effect
-  const allSections = [...gradientClasses, ...gradientClasses, ...gradientClasses];
+  const CurrentBackground = backgroundComponents[currentSection];
 
   return (
-    <div className="relative h-screen w-screen overflow-hidden">
-      {/* Full-screen scrolling gradient background */}
-      <div
-        ref={scrollContainerRef}
-        className="absolute inset-0 hide-scrollbar overflow-y-scroll"
-        style={{ scrollSnapType: "y mandatory" }}
-      >
-        {allSections.map((gradient, index) => (
+    <div className="min-h-screen w-full relative overflow-hidden">
+      {/* Full-screen background with component slides */}
+      <div className="fixed inset-0">
+        {backgroundComponents.map((Background, index) => (
           <div
             key={index}
-            className={`h-screen w-full ${gradient} animate-gradient`}
-            style={{ scrollSnapAlign: "start" }}
-          />
+            className={`absolute inset-0 transition-opacity duration-700 ${
+              currentSection === index ? "opacity-100 z-10" : "opacity-0 z-0"
+            }`}
+          >
+            <Background />
+          </div>
         ))}
       </div>
 
-      {/* Section indicators */}
-      <div className="fixed left-6 top-1/2 -translate-y-1/2 flex flex-col gap-2 z-20">
-        {gradientClasses.map((_, index) => (
+      {/* Section indicators - left side */}
+      <div className="fixed left-6 top-1/2 -translate-y-1/2 z-30 hidden md:flex flex-col gap-3">
+        {backgroundComponents.map((_, index) => (
           <button
             key={index}
-            onClick={() => scrollToSection(index)}
+            onClick={() => {
+              pauseAutoScroll();
+              scrollToSection(index);
+            }}
             className={`w-2 h-2 rounded-full transition-all duration-300 ${
               currentSection === index
-                ? "bg-white scale-125"
+                ? "bg-white scale-150"
                 : "bg-white/40 hover:bg-white/70"
             }`}
             aria-label={`Go to section ${index + 1}`}
@@ -131,15 +149,28 @@ const Index = () => {
         ))}
       </div>
 
-      {/* Login form container - positioned on right half on desktop, centered on mobile */}
-      <div className="fixed inset-0 flex items-center justify-center md:justify-end p-6 md:pr-12 lg:pr-24 z-10">
-        <Card className="w-full max-w-md bg-white/10 backdrop-blur-xl border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.3)] rounded-2xl">
+      {/* Progress bar */}
+      <div className="fixed top-0 left-0 right-0 z-30 h-1 bg-white/10">
+        <div
+          className="h-full bg-white/50 transition-all duration-300"
+          style={{ width: `${((currentSection + 1) / totalSections) * 100}%` }}
+        />
+      </div>
+
+      {/* Login form - fixed on right side */}
+      <div className="login-form-container fixed inset-0 md:left-1/2 md:w-1/2 flex items-center justify-center z-20 p-4 md:p-8">
+        {/* Mobile gradient background */}
+        <div className="absolute inset-0 md:hidden">
+          <CurrentBackground />
+        </div>
+        
+        <Card className="w-full max-w-md bg-white/10 backdrop-blur-xl border-white/20 shadow-[0_8px_32px_hsl(var(--glass-shadow)/0.3)] relative z-10">
           <CardHeader className="space-y-1 text-center">
-            <CardTitle className="text-2xl font-bold text-white">
+            <CardTitle className="text-2xl md:text-3xl font-bold text-white">
               Welcome Back
             </CardTitle>
             <CardDescription className="text-white/70">
-              Enter your credentials to sign in
+              Sign in to your automation platform
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -154,7 +185,7 @@ const Index = () => {
                   placeholder="name@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-white/50 focus:ring-white/30 transition-all duration-200"
+                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-white/40 focus:ring-white/20"
                   required
                 />
               </div>
@@ -168,17 +199,25 @@ const Index = () => {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-white/50 focus:ring-white/30 transition-all duration-200"
+                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-white/40 focus:ring-white/20"
                   required
                 />
               </div>
               <Button
                 type="submit"
-                className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-sm transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+                className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]"
               >
                 Sign In
               </Button>
             </form>
+            <div className="mt-6 text-center">
+              <p className="text-white/60 text-sm">
+                Don't have an account?{" "}
+                <a href="#" className="text-white hover:underline">
+                  Sign up
+                </a>
+              </p>
+            </div>
           </CardContent>
         </Card>
       </div>
