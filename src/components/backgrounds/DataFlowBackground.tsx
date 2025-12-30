@@ -15,12 +15,12 @@ const DataFlowBackground = () => {
 
   return (
     <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--gradient-2-start))] to-[hsl(var(--gradient-2-end))] overflow-hidden">
-      {/* Data streams */}
-      {[...Array(12)].map((_, i) => (
+      {/* Data streams - contained to left 45% */}
+      {[...Array(10)].map((_, i) => (
         <div
           key={i}
           className="absolute h-full w-px"
-          style={{ left: `${8 + i * 8}%` }}
+          style={{ left: `${5 + i * 4}%` }}
         >
           {/* Stream line */}
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/10 to-transparent" />
@@ -37,14 +37,14 @@ const DataFlowBackground = () => {
         </div>
       ))}
 
-      {/* Floating data cards */}
-      <div className="absolute top-[15%] left-[10%] w-32 h-20 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 p-3 animate-float">
+      {/* Floating data cards - contained to left side */}
+      <div className="absolute top-[15%] left-[5%] w-32 h-20 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 p-3 animate-float">
         <div className="w-full h-2 bg-white/30 rounded mb-2" />
         <div className="w-3/4 h-2 bg-white/20 rounded mb-2" />
         <div className="w-1/2 h-2 bg-white/20 rounded" />
       </div>
 
-      <div className="absolute top-[40%] left-[5%] w-28 h-16 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 p-3 animate-float" style={{ animationDelay: "1s" }}>
+      <div className="absolute top-[40%] left-[25%] w-28 h-16 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 p-3 animate-float" style={{ animationDelay: "1s" }}>
         <div className="flex gap-2">
           <div className="w-8 h-8 bg-white/20 rounded-lg" />
           <div className="flex-1">
@@ -54,7 +54,7 @@ const DataFlowBackground = () => {
         </div>
       </div>
 
-      <div className="absolute top-[65%] left-[15%] w-36 h-24 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 p-3 animate-float" style={{ animationDelay: "0.5s" }}>
+      <div className="absolute top-[65%] left-[8%] w-36 h-24 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 p-3 animate-float" style={{ animationDelay: "0.5s" }}>
         <div className="flex gap-1 mb-2">
           {[...Array(4)].map((_, i) => (
             <div key={i} className="flex-1 h-12 bg-white/20 rounded" style={{ height: `${20 + Math.random() * 30}px` }} />
