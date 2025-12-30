@@ -12,14 +12,14 @@ const WorkflowBackground = () => {
   }, []);
 
   const nodes = [
-    { x: 8, y: 20, label: "Start" },
-    { x: 20, y: 15, label: "Auth" },
-    { x: 32, y: 25, label: "Validate" },
-    { x: 44, y: 18, label: "Process" },
-    { x: 12, y: 50, label: "Check" },
-    { x: 28, y: 55, label: "Transform" },
-    { x: 40, y: 48, label: "API" },
-    { x: 24, y: 75, label: "Complete" },
+    { x: 15, y: 20, label: "Start" },
+    { x: 35, y: 15, label: "Auth" },
+    { x: 55, y: 25, label: "Validate" },
+    { x: 75, y: 18, label: "Process" },
+    { x: 25, y: 50, label: "Check" },
+    { x: 50, y: 55, label: "Transform" },
+    { x: 70, y: 48, label: "API" },
+    { x: 40, y: 80, label: "Complete" },
   ];
 
   const connections = [

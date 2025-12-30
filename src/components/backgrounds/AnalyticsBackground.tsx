@@ -40,8 +40,8 @@ const AnalyticsBackground = () => {
         </svg>
       </div>
 
-      {/* Main chart - contained to left side */}
-      <div className="absolute left-[5%] top-[15%] w-[38%] h-[45%]">
+      {/* Main chart */}
+      <div className="absolute left-[5%] top-[15%] w-[40%] h-[50%]">
         <div className="w-full h-full bg-white/5 backdrop-blur-sm rounded-2xl border border-white/10 p-4">
           <div className="flex items-center justify-between mb-4">
             <span className="text-white/70 text-sm">Performance</span>
@@ -74,9 +74,9 @@ const AnalyticsBackground = () => {
         </div>
       </div>
 
-      {/* Metrics cards - moved to left side, stacked vertically */}
-      <div className="absolute left-[5%] top-[65%] flex gap-3">
-        {metrics.slice(0, 2).map((metric, i) => (
+      {/* Metrics cards */}
+      <div className="absolute right-[5%] top-[15%] space-y-3 w-[30%]">
+        {metrics.map((metric, i) => (
           <div
             key={i}
             className={`p-4 bg-white/5 backdrop-blur-sm rounded-xl border transition-all duration-500 ${
@@ -96,8 +96,8 @@ const AnalyticsBackground = () => {
         ))}
       </div>
 
-      {/* Line chart decoration - contained to left */}
-      <svg className="absolute bottom-[35%] left-[5%] w-[40%] h-[15%]" viewBox="0 0 400 100">
+      {/* Line chart decoration */}
+      <svg className="absolute bottom-[25%] left-[10%] w-[35%] h-[20%]" viewBox="0 0 400 100">
         <path
           d="M 0 80 Q 50 60, 100 50 T 200 40 T 300 30 T 400 20"
           fill="none"
@@ -121,10 +121,10 @@ const AnalyticsBackground = () => {
         </defs>
       </svg>
 
-      {/* Floating stats - moved to left side */}
-      <div className="absolute top-[20%] left-[35%] animate-float">
-        <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex flex-col items-center justify-center">
-          <span className="text-white text-xl font-bold">98%</span>
+      {/* Floating stats */}
+      <div className="absolute bottom-[30%] right-[15%] animate-float">
+        <div className="w-24 h-24 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex flex-col items-center justify-center">
+          <span className="text-white text-2xl font-bold">98%</span>
           <span className="text-white/50 text-xs">Uptime</span>
         </div>
       </div>

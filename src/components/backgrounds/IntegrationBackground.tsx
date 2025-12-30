@@ -12,18 +12,18 @@ const IntegrationBackground = () => {
   }, []);
 
   const platforms = [
-    { name: "CRM", x: 10, y: 25, color: "from-blue-400/30 to-blue-600/30" },
-    { name: "ERP", x: 25, y: 15, color: "from-purple-400/30 to-purple-600/30" },
-    { name: "API", x: 38, y: 22, color: "from-pink-400/30 to-pink-600/30" },
-    { name: "DB", x: 45, y: 35, color: "from-cyan-400/30 to-cyan-600/30" },
-    { name: "Cloud", x: 8, y: 55, color: "from-indigo-400/30 to-indigo-600/30" },
-    { name: "AI", x: 22, y: 65, color: "from-violet-400/30 to-violet-600/30" },
-    { name: "IoT", x: 35, y: 58, color: "from-fuchsia-400/30 to-fuchsia-600/30" },
-    { name: "Auth", x: 42, y: 75, color: "from-rose-400/30 to-rose-600/30" },
+    { name: "CRM", x: 20, y: 25, color: "from-blue-400/30 to-blue-600/30" },
+    { name: "ERP", x: 40, y: 15, color: "from-purple-400/30 to-purple-600/30" },
+    { name: "API", x: 60, y: 22, color: "from-pink-400/30 to-pink-600/30" },
+    { name: "DB", x: 80, y: 18, color: "from-cyan-400/30 to-cyan-600/30" },
+    { name: "Cloud", x: 15, y: 55, color: "from-indigo-400/30 to-indigo-600/30" },
+    { name: "AI", x: 35, y: 65, color: "from-violet-400/30 to-violet-600/30" },
+    { name: "IoT", x: 55, y: 58, color: "from-fuchsia-400/30 to-fuchsia-600/30" },
+    { name: "Auth", x: 75, y: 52, color: "from-rose-400/30 to-rose-600/30" },
   ];
 
-  const centerX = 25;
-  const centerY = 42;
+  const centerX = 45;
+  const centerY = 40;
 
   return (
     <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--gradient-4-start))] to-[hsl(var(--gradient-4-end))] overflow-hidden">
@@ -88,8 +88,8 @@ const IntegrationBackground = () => {
         </div>
       ))}
 
-      {/* Bottom row icons - moved to left side */}
-      <div className="absolute bottom-32 left-[20%] flex gap-6">
+      {/* Bottom row icons */}
+      <div className="absolute bottom-32 left-1/2 -translate-x-1/2 flex gap-6">
         {["Sync", "Deploy", "Monitor", "Scale"].map((label, i) => (
           <div key={i} className="text-center animate-fade-in" style={{ animationDelay: `${i * 0.1}s` }}>
             <div className="w-10 h-10 rounded-lg bg-white/10 border border-white/20 mb-2" />

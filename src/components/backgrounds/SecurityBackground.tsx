@@ -88,8 +88,8 @@ const SecurityBackground = () => {
         </div>
       </div>
 
-      {/* Status indicators - moved to left side */}
-      <div className="absolute left-[5%] top-[20%] space-y-4">
+      {/* Status indicators */}
+      <div className="absolute right-[10%] top-[20%] space-y-4">
         {["System Active", "Firewall On", "SSL Enabled", "2FA Ready"].map((status, i) => (
           <div
             key={i}
