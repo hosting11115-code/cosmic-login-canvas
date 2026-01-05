@@ -97,29 +97,31 @@ const AnalyticsBackground = () => {
       </div>
 
       {/* Line chart decoration */}
-      <svg className="absolute bottom-[25%] left-[10%] w-[35%] h-[20%]" viewBox="0 0 400 100">
-        <path
-          d="M 0 80 Q 50 60, 100 50 T 200 40 T 300 30 T 400 20"
-          fill="none"
-          stroke="rgba(255,255,255,0.3)"
-          strokeWidth="2"
-        />
-        <path
-          d="M 0 80 Q 50 60, 100 50 T 200 40 T 300 30 T 400 20"
-          fill="none"
-          stroke="url(#lineGradient)"
-          strokeWidth="2"
-          strokeDasharray="800"
-          className="animate-[dash_3s_ease-in-out_infinite]"
-        />
-        <defs>
-          <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor="rgba(255,255,255,0.1)" />
-            <stop offset="50%" stopColor="rgba(255,255,255,0.8)" />
-            <stop offset="100%" stopColor="rgba(255,255,255,0.1)" />
-          </linearGradient>
-        </defs>
-      </svg>
+      <div className="absolute bottom-[25%] left-[10%] w-[35%] h-[20%] overflow-hidden">
+        <svg className="w-full h-full" viewBox="0 0 400 100" preserveAspectRatio="xMidYMid meet">
+          <path
+            d="M 0 70 Q 50 55, 100 50 T 200 45 T 300 40 T 400 35"
+            fill="none"
+            stroke="rgba(255,255,255,0.3)"
+            strokeWidth="2"
+          />
+          <path
+            d="M 0 70 Q 50 55, 100 50 T 200 45 T 300 40 T 400 35"
+            fill="none"
+            stroke="url(#lineGradient)"
+            strokeWidth="2"
+            strokeDasharray="800"
+            className="animate-[dash_3s_ease-in-out_infinite]"
+          />
+          <defs>
+            <linearGradient id="lineGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="rgba(255,255,255,0.1)" />
+              <stop offset="50%" stopColor="rgba(255,255,255,0.8)" />
+              <stop offset="100%" stopColor="rgba(255,255,255,0.1)" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
 
       {/* Floating stats */}
       <div className="absolute bottom-[30%] right-[15%] animate-float">

@@ -53,18 +53,16 @@ const SecurityBackground = () => {
       />
 
       {/* Central security shield */}
-      <div className="absolute left-[15%] top-1/2 -translate-y-1/2">
-        <div className="relative">
-          {/* Outer rings */}
+      <div className="absolute left-[15%] top-1/2 -translate-y-1/2 flex items-center justify-center">
+        <div className="relative w-32 h-32 md:w-40 md:h-40 flex items-center justify-center">
+          {/* Outer rings - centered using absolute positioning from center */}
           {[...Array(3)].map((_, i) => (
             <div
               key={i}
-              className="absolute rounded-full border border-white/20 animate-ping"
+              className="absolute rounded-full border border-white/20 animate-ping left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
               style={{
-                width: `${180 + i * 60}px`,
-                height: `${180 + i * 60}px`,
-                left: `${-30 - i * 30}px`,
-                top: `${-30 - i * 30}px`,
+                width: `${160 + i * 60}px`,
+                height: `${160 + i * 60}px`,
                 animationDuration: `${2 + i * 0.5}s`,
                 animationDelay: `${i * 0.3}s`,
               }}
