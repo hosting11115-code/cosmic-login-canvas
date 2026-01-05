@@ -1,5 +1,12 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import logo from "@/assets/images/logo.png";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -28,7 +35,7 @@ const Index = () => {
   const autoScrollIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const pauseTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isPausedRef = useRef(false);
-  
+
   const totalSections = backgroundComponents.length;
 
   // Keep ref in sync with state
@@ -36,68 +43,75 @@ const Index = () => {
     currentSectionRef.current = currentSection;
   }, [currentSection]);
 
-  const scrollToSection = useCallback((index: number) => {
-    if (isScrollingRef.current) return;
-    
-    isScrollingRef.current = true;
-    
-    const normalizedIndex = ((index % totalSections) + totalSections) % totalSections;
-    setCurrentSection(normalizedIndex);
-    
-    setTimeout(() => {
-      isScrollingRef.current = false;
-    }, 600);
-  }, [totalSections]);
+  const scrollToSection = useCallback(
+    (index: number) => {
+      if (isScrollingRef.current) return;
+
+      isScrollingRef.current = true;
+
+      const normalizedIndex =
+        ((index % totalSections) + totalSections) % totalSections;
+      setCurrentSection(normalizedIndex);
+
+      setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 600);
+    },
+    [totalSections]
+  );
 
   // Auto-scroll functionality
   const startAutoScroll = useCallback(() => {
     if (autoScrollIntervalRef.current) {
       clearInterval(autoScrollIntervalRef.current);
     }
-    
+
     autoScrollIntervalRef.current = setInterval(() => {
       if (!isPausedRef.current && !isScrollingRef.current) {
         const nextSection = (currentSectionRef.current + 1) % totalSections;
         scrollToSection(nextSection);
       }
-    }, 4000); // Auto-scroll every 4 seconds
+    }, 100000); // Auto-scroll every 100 seconds
   }, [scrollToSection, totalSections]);
 
   // Pause auto-scroll on user interaction
   const pauseAutoScroll = useCallback(() => {
     isPausedRef.current = true;
-    
+
     if (pauseTimeoutRef.current) {
       clearTimeout(pauseTimeoutRef.current);
     }
-    
+
     pauseTimeoutRef.current = setTimeout(() => {
       isPausedRef.current = false;
-    }, 5000); // Resume after 5 seconds
+    }, 200000); // Resume after 200 seconds
   }, []);
 
   // Handle wheel scroll
-  const handleWheel = useCallback((e: WheelEvent) => {
-    // Only handle wheel on left side (background area)
-    const target = e.target as HTMLElement;
-    if (target.closest('.login-form-container')) return;
-    
-    e.preventDefault();
-    pauseAutoScroll();
-    
-    if (isScrollingRef.current) return;
-    
-    const direction = e.deltaY > 0 ? 1 : -1;
-    const nextSection = currentSectionRef.current + direction;
-    scrollToSection(nextSection);
-  }, [scrollToSection, pauseAutoScroll]);
+  const handleWheel = useCallback(
+    (e: WheelEvent) => {
+      // Only handle wheel on left side (background area)
+      const target = e.target as HTMLElement;
+      if (target.closest(".login-form-container")) return;
+
+      e.preventDefault();
+      pauseAutoScroll();
+
+      if (isScrollingRef.current) return;
+
+      const direction = e.deltaY > 0 ? 1 : -1;
+      const nextSection = currentSectionRef.current + direction;
+      scrollToSection(nextSection);
+    },
+    [scrollToSection, pauseAutoScroll]
+  );
 
   // Initialize auto-scroll
   useEffect(() => {
     startAutoScroll();
-    
+
     document.addEventListener("wheel", handleWheel, { passive: false });
-    
+
     return () => {
       document.removeEventListener("wheel", handleWheel);
       if (autoScrollIntervalRef.current) {
@@ -165,15 +179,13 @@ const Index = () => {
         <div className="absolute inset-0 md:hidden">
           <CurrentBackground />
         </div>
-        
-        <Card className="w-full max-w-md bg-white/10 backdrop-blur-xl border-white/20 shadow-[0_8px_32px_hsl(var(--glass-shadow)/0.3)] relative z-10">
+
+        <Card className="w-full max-w-md bg-white/10 backdrop-blur border-2 border-dashed border-white/20 shadow-[0_15px_32px_hsl(var(--glass-shadow)/0.3)] relative z-10">
           <CardHeader className="space-y-1 text-center">
             <CardTitle className="text-2xl md:text-3xl font-bold text-white">
-              Welcome Back
+              {/* Welcome Back */}
+              <img src={logo} className="h-10 mx-auto" />
             </CardTitle>
-            <CardDescription className="text-white/70">
-              Sign in to your automation platform
-            </CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">

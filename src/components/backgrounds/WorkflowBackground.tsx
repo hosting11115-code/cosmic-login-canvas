@@ -1,5 +1,14 @@
 import { useEffect, useState } from "react";
-import { Play, Pause, CheckCircle, Clock, GitBranch, ArrowRight, RotateCcw, AlertCircle } from "lucide-react";
+import {
+  Play,
+  Pause,
+  CheckCircle,
+  Clock,
+  GitBranch,
+  ArrowRight,
+  RotateCcw,
+  AlertCircle,
+} from "lucide-react";
 
 const WorkflowBackground = () => {
   const [activeNodes, setActiveNodes] = useState<number[]>([]);
@@ -8,13 +17,15 @@ const WorkflowBackground = () => {
 
   useEffect(() => {
     const nodeInterval = setInterval(() => {
-      const randomNodes = Array.from({ length: 3 }, () => Math.floor(Math.random() * 8));
+      const randomNodes = Array.from({ length: 3 }, () =>
+        Math.floor(Math.random() * 8)
+      );
       setActiveNodes(randomNodes);
     }, 1500);
 
     const taskInterval = setInterval(() => {
-      setRunningTask(prev => (prev + 1) % 5);
-      setCompletedTasks(prev => prev + 1);
+      setRunningTask((prev) => (prev + 1) % 5);
+      setCompletedTasks((prev) => prev + 1);
     }, 2000);
 
     return () => {
@@ -35,7 +46,15 @@ const WorkflowBackground = () => {
   ];
 
   const connections = [
-    [0, 1], [1, 2], [2, 3], [0, 4], [4, 5], [5, 6], [3, 6], [5, 7], [6, 7]
+    [0, 1],
+    [1, 2],
+    [2, 3],
+    [0, 4],
+    [4, 5],
+    [5, 6],
+    [3, 6],
+    [5, 7],
+    [6, 7],
   ];
 
   const recentRuns = [
@@ -45,7 +64,13 @@ const WorkflowBackground = () => {
     { name: "Email Campaign", status: "warning", time: "8m ago" },
   ];
 
-  const taskQueue = ["Validate Order", "Check Inventory", "Process Payment", "Send Confirmation", "Update CRM"];
+  const taskQueue = [
+    "Validate Order",
+    "Check Inventory",
+    "Process Payment",
+    "Send Confirmation",
+    "Update CRM",
+  ];
 
   return (
     <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--gradient-1-start))] to-[hsl(var(--gradient-1-end))] overflow-hidden">
@@ -53,8 +78,18 @@ const WorkflowBackground = () => {
       <div className="absolute inset-0 opacity-10">
         <svg className="w-full h-full">
           <defs>
-            <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="white" strokeWidth="0.5" />
+            <pattern
+              id="grid"
+              width="60"
+              height="60"
+              patternUnits="userSpaceOnUse"
+            >
+              <path
+                d="M 60 0 L 0 0 0 60"
+                fill="none"
+                stroke="white"
+                strokeWidth="0.5"
+              />
             </pattern>
           </defs>
           <rect width="100%" height="100%" fill="url(#grid)" />
@@ -64,11 +99,29 @@ const WorkflowBackground = () => {
       {/* Top stats bar */}
       <div className="absolute top-[6%] left-[4%] flex gap-3">
         {[
-          { label: "Active", value: "12", icon: Play, color: "text-emerald-400" },
-          { label: "Queued", value: "47", icon: Clock, color: "text-amber-400" },
-          { label: "Completed", value: completedTasks.toString(), icon: CheckCircle, color: "text-cyan-400" },
+          {
+            label: "Active",
+            value: "12",
+            icon: Play,
+            color: "text-emerald-400",
+          },
+          {
+            label: "Queued",
+            value: "47",
+            icon: Clock,
+            color: "text-amber-400",
+          },
+          {
+            label: "Completed",
+            value: completedTasks.toString(),
+            icon: CheckCircle,
+            color: "text-cyan-400",
+          },
         ].map((stat, i) => (
-          <div key={i} className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 px-3 py-2 flex items-center gap-2">
+          <div
+            key={i}
+            className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 px-3 py-2 flex items-center gap-2"
+          >
             <stat.icon className={`w-3 h-3 ${stat.color}`} />
             <div>
               <div className="text-white text-xs font-medium">{stat.value}</div>
@@ -114,7 +167,9 @@ const WorkflowBackground = () => {
               }`}
             >
               <Icon className="w-4 h-4 text-white/70 mb-1" />
-              <span className="text-white/80 text-[8px] font-medium">{node.label}</span>
+              <span className="text-white/80 text-[8px] font-medium">
+                {node.label}
+              </span>
             </div>
           </div>
         );
@@ -124,17 +179,26 @@ const WorkflowBackground = () => {
       <div className="absolute top-[6%] right-[4%] w-[22%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
         <div className="flex items-center gap-2 mb-2">
           <RotateCcw className="w-3 h-3 text-white/60" />
-          <span className="text-white/70 text-[10px] font-medium">RECENT RUNS</span>
+          <span className="text-white/70 text-[10px] font-medium">
+            RECENT RUNS
+          </span>
         </div>
         <div className="space-y-1.5">
           {recentRuns.map((run, i) => (
-            <div key={i} className="flex items-center justify-between text-[9px] py-1 border-b border-white/5 last:border-0">
+            <div
+              key={i}
+              className="flex items-center justify-between text-[9px] py-1 border-b border-white/5 last:border-0"
+            >
               <div className="flex items-center gap-1.5">
-                <div className={`w-1.5 h-1.5 rounded-full ${
-                  run.status === 'success' ? 'bg-emerald-400' :
-                  run.status === 'running' ? 'bg-cyan-400 animate-pulse' :
-                  'bg-amber-400'
-                }`} />
+                <div
+                  className={`w-1.5 h-1.5 rounded-full ${
+                    run.status === "success"
+                      ? "bg-emerald-400"
+                      : run.status === "running"
+                      ? "bg-cyan-400 animate-pulse"
+                      : "bg-amber-400"
+                  }`}
+                />
                 <span className="text-white/70">{run.name}</span>
               </div>
               <span className="text-white/40">{run.time}</span>
@@ -144,11 +208,13 @@ const WorkflowBackground = () => {
       </div>
 
       {/* Task Queue */}
-      <div className="absolute bottom-[28%] right-[4%] w-[22%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
+      <div className="absolute bottom-[6%] right-[10%] w-[22%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <Clock className="w-3 h-3 text-white/60" />
-            <span className="text-white/70 text-[10px] font-medium">TASK QUEUE</span>
+            <span className="text-white/70 text-[10px] font-medium">
+              TASK QUEUE
+            </span>
           </div>
           <span className="text-white/40 text-[8px]">5 pending</span>
         </div>
@@ -157,7 +223,7 @@ const WorkflowBackground = () => {
             <div
               key={i}
               className={`flex items-center gap-2 text-[9px] py-1.5 px-2 rounded transition-all duration-300 ${
-                runningTask === i ? 'bg-white/10 border border-white/20' : ''
+                runningTask === i ? "bg-white/10 border border-white/20" : ""
               }`}
             >
               {runningTask === i ? (
@@ -165,7 +231,11 @@ const WorkflowBackground = () => {
               ) : (
                 <div className="w-2 h-2 rounded-full bg-white/20" />
               )}
-              <span className={runningTask === i ? 'text-white' : 'text-white/50'}>{task}</span>
+              <span
+                className={runningTask === i ? "text-white" : "text-white/50"}
+              >
+                {task}
+              </span>
             </div>
           ))}
         </div>
@@ -175,18 +245,28 @@ const WorkflowBackground = () => {
       <div className="absolute bottom-[28%] left-[4%] w-[26%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
         <div className="flex items-center gap-2 mb-2">
           <GitBranch className="w-3 h-3 text-white/60" />
-          <span className="text-white/70 text-[10px] font-medium">EXECUTION FLOW</span>
+          <span className="text-white/70 text-[10px] font-medium">
+            EXECUTION FLOW
+          </span>
         </div>
         <div className="flex items-center gap-1">
           {["Start", "Validate", "Process", "Complete"].map((step, i) => (
             <div key={i} className="flex-1 flex items-center">
-              <div className={`w-6 h-6 rounded-full flex items-center justify-center text-[7px] ${
-                i <= 2 ? 'bg-emerald-500/30 text-emerald-400 border border-emerald-500/50' : 'bg-white/10 text-white/40 border border-white/20'
-              }`}>
+              <div
+                className={`w-6 h-6 rounded-full flex items-center justify-center text-[7px] ${
+                  i <= 2
+                    ? "bg-emerald-500/30 text-emerald-400 border border-emerald-500/50"
+                    : "bg-white/10 text-white/40 border border-white/20"
+                }`}
+              >
                 {i + 1}
               </div>
               {i < 3 && (
-                <div className={`flex-1 h-0.5 ${i < 2 ? 'bg-emerald-500/50' : 'bg-white/10'}`} />
+                <div
+                  className={`flex-1 h-0.5 ${
+                    i < 2 ? "bg-emerald-500/50" : "bg-white/10"
+                  }`}
+                />
               )}
             </div>
           ))}
