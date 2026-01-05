@@ -8,6 +8,7 @@ import DataFlowBackground from "@/components/backgrounds/DataFlowBackground";
 import SecurityBackground from "@/components/backgrounds/SecurityBackground";
 import IntegrationBackground from "@/components/backgrounds/IntegrationBackground";
 import AnalyticsBackground from "@/components/backgrounds/AnalyticsBackground";
+import AutomationBackground from "@/components/backgrounds/AutomationBackground";
 
 const backgroundComponents = [
   WorkflowBackground,
@@ -15,6 +16,7 @@ const backgroundComponents = [
   SecurityBackground,
   IntegrationBackground,
   AnalyticsBackground,
+  AutomationBackground,
 ];
 
 const Index = () => {
