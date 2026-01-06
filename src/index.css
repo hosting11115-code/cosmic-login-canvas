@@ -47,26 +47,28 @@ All colors MUST be HSL.
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
 
-    /* Gradient sections - Cool Blues & Purples */
-    --gradient-1-start: 250 70% 20%;
-    --gradient-1-end: 280 60% 35%;
-    
-    --gradient-2-start: 200 80% 25%;
-    --gradient-2-end: 230 70% 40%;
-    
-    --gradient-3-start: 270 65% 25%;
-    --gradient-3-end: 300 55% 45%;
-    
-    --gradient-4-start: 220 75% 20%;
-    --gradient-4-end: 250 65% 38%;
-    
-    --gradient-5-start: 240 70% 18%;
-    --gradient-5-end: 280 60% 30%;
+    --gradient-1-start: 260 30% 20%;
+    --gradient-1-end: 228 40% 10%;
+
+    --gradient-2-start: 200 50% 25%;
+    --gradient-2-end: 230 40% 20%;
+
+    --gradient-3-start: 0 22% 19%;
+    --gradient-3-end: 20 22% 20%;
+
+    --gradient-4-start: 200 25% 20%;
+    --gradient-4-end: 20 25% 10%;
+
+    --gradient-5-start: 280 20% 18%;
+    --gradient-5-end: 200 20% 20%;
+
+    --gradient-6-start: 209 21% 13%;
+    --gradient-6-end: 180 31% 10%;
 
     /* Glassmorphism */
     --glass-bg: 0 0% 100%;
     --glass-border: 0 0% 100%;
-    --glass-shadow: 240 60% 30%;
+    --glass-shadow: 0 0% 0%;
   }
 
   .dark {
@@ -109,16 +111,16 @@ All colors MUST be HSL.
     /* Gradient sections - Cool Blues & Purples (Dark mode) */
     --gradient-1-start: 250 70% 15%;
     --gradient-1-end: 280 60% 30%;
-    
+
     --gradient-2-start: 200 80% 18%;
     --gradient-2-end: 230 70% 35%;
-    
+
     --gradient-3-start: 270 65% 18%;
     --gradient-3-end: 300 55% 38%;
-    
+
     --gradient-4-start: 220 75% 15%;
     --gradient-4-end: 250 65% 32%;
-    
+
     --gradient-5-start: 240 70% 12%;
     --gradient-5-end: 280 60% 25%;
 
@@ -151,7 +153,8 @@ All colors MUST be HSL.
 
 /* Gradient animation */
 @keyframes gradient-shift {
-  0%, 100% {
+  0%,
+  100% {
     background-position: 0% 50%;
   }
   50% {

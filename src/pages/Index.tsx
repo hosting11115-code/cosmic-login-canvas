@@ -71,7 +71,7 @@ const Index = () => {
         const nextSection = (currentSectionRef.current + 1) % totalSections;
         scrollToSection(nextSection);
       }
-    }, 100000); // Auto-scroll every 100 seconds
+    }, 40000); // Auto-scroll every 4 seconds
   }, [scrollToSection, totalSections]);
 
   // Pause auto-scroll on user interaction
@@ -84,7 +84,7 @@ const Index = () => {
 
     pauseTimeoutRef.current = setTimeout(() => {
       isPausedRef.current = false;
-    }, 200000); // Resume after 200 seconds
+    }, 50000); // Resume after 5 seconds
   }, []);
 
   // Handle wheel scroll
@@ -141,6 +141,7 @@ const Index = () => {
               currentSection === index ? "opacity-100 z-10" : "opacity-0 z-0"
             }`}
           >
+            <div className="absolute h-full w-full bg-black/20 z-10 " />
             <Background />
           </div>
         ))}
@@ -180,11 +181,11 @@ const Index = () => {
           <CurrentBackground />
         </div>
 
-        <Card className="w-full max-w-md bg-white/10 backdrop-blur border-2 border-dashed border-white/20 shadow-[0_15px_32px_hsl(var(--glass-shadow)/0.3)] relative z-10">
+        <Card className="w-full max-w-md p-10 bg-white/10 backdrop-blur border-2 border-dashed border-white/20 shadow-[10px_10px_30px_1px_hsl(var(--glass-shadow)/0.4)] relative z-10">
           <CardHeader className="space-y-1 text-center">
             <CardTitle className="text-2xl md:text-3xl font-bold text-white">
               {/* Welcome Back */}
-              <img src={logo} className="h-10 mx-auto" />
+              <img src={logo} className="h-12 mx-auto" />
             </CardTitle>
           </CardHeader>
           <CardContent>

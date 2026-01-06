@@ -120,7 +120,7 @@ const WorkflowBackground = () => {
         ].map((stat, i) => (
           <div
             key={i}
-            className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 px-3 py-2 flex items-center gap-2"
+            className="bg-gray-700/40 backdrop-blur-sm rounded-lg border border-white/10 px-3 py-2 flex items-center gap-2"
           >
             <stat.icon className={`w-3 h-3 ${stat.color}`} />
             <div>
@@ -140,7 +140,7 @@ const WorkflowBackground = () => {
             y1={`${nodes[from].y}%`}
             x2={`${nodes[to].x}%`}
             y2={`${nodes[to].y}%`}
-            stroke="rgba(255,255,255,0.2)"
+            stroke="rgba(255,255,255,0.1)"
             strokeWidth="2"
             strokeDasharray="8,4"
             className="animate-pulse"
@@ -162,8 +162,8 @@ const WorkflowBackground = () => {
             <div
               className={`w-14 h-14 md:w-16 md:h-16 rounded-xl backdrop-blur-md border border-white/20 flex flex-col items-center justify-center transition-all duration-500 ${
                 activeNodes.includes(i)
-                  ? "bg-white/30 shadow-[0_0_30px_rgba(255,255,255,0.4)]"
-                  : "bg-white/10"
+                  ? "bg-gray-700/80 shadow-[0_0_40px_2px_rgba(255,255,255,0.2)]"
+                  : "bg-gray-700/40"
               }`}
             >
               <Icon className="w-4 h-4 text-white/70 mb-1" />
@@ -176,7 +176,7 @@ const WorkflowBackground = () => {
       })}
 
       {/* Recent Runs Panel */}
-      <div className="absolute top-[6%] right-[4%] w-[22%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
+      <div className="absolute top-[6%] right-[4%] w-[22%] bg-gray-700/40 backdrop-blur-sm rounded-xl border border-white/10 p-3">
         <div className="flex items-center gap-2 mb-2">
           <RotateCcw className="w-3 h-3 text-white/60" />
           <span className="text-white/70 text-[10px] font-medium">
@@ -208,7 +208,7 @@ const WorkflowBackground = () => {
       </div>
 
       {/* Task Queue */}
-      <div className="absolute bottom-[6%] right-[10%] w-[22%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
+      <div className="absolute bottom-[8%] right-[4%] w-[22%] bg-gray-700/40 backdrop-blur-sm rounded-xl border border-white/10 p-3">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <Clock className="w-3 h-3 text-white/60" />
@@ -242,7 +242,7 @@ const WorkflowBackground = () => {
       </div>
 
       {/* Execution Timeline */}
-      <div className="absolute bottom-[28%] left-[4%] w-[26%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
+      <div className="absolute bottom-[20%] left-[4%] w-[26%] bg-gray-700/40 backdrop-blur-sm rounded-xl border border-white/10 p-3">
         <div className="flex items-center gap-2 mb-2">
           <GitBranch className="w-3 h-3 text-white/60" />
           <span className="text-white/70 text-[10px] font-medium">

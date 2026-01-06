@@ -61,14 +61,14 @@ const DataFlowBackground = () => {
   return (
     <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--gradient-2-start))] to-[hsl(var(--gradient-2-end))] overflow-hidden">
       {/* Floating data cards */}
-      <div className="absolute top-[15%] left-[30%] w-32 h-20 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 p-3 animate-float">
+      <div className="absolute top-[15%] left-[30%] w-32 h-20 bg-gray-700/40 backdrop-blur-md rounded-xl border border-white/20 p-3 animate-float">
         <div className="w-full h-2 bg-white/30 rounded mb-2" />
         <div className="w-3/4 h-2 bg-white/20 rounded mb-2" />
         <div className="w-1/2 h-2 bg-white/20 rounded" />
       </div>
 
       <div
-        className="absolute top-[40%] left-[50%] w-28 h-16 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 p-3 animate-float"
+        className="absolute top-[45%] left-[40%] w-28 h-16 bg-gray-700/40 backdrop-blur-md rounded-xl border border-white/20 p-3 animate-float"
         style={{ animationDelay: "1s" }}
       >
         <div className="flex gap-2">
@@ -81,7 +81,7 @@ const DataFlowBackground = () => {
       </div>
 
       <div
-        className="absolute top-[75%] left-[15%] w-36 h-24 bg-white/10 backdrop-blur-md rounded-xl border border-white/20 p-3 animate-float"
+        className="absolute top-[70%] left-[10%] w-36 h-24 bg-gray-700/40 backdrop-blur-md rounded-xl border border-white/20 p-3 animate-float"
         style={{ animationDelay: "0.5s" }}
       >
         <div className="flex gap-1 mb-2">
@@ -106,8 +106,8 @@ const DataFlowBackground = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-transparent via-white/10 to-transparent" />
           {streams.includes(i) && (
             <div
-              className="absolute w-3 h-8 bg-white/60 rounded-full blur-sm"
-              style={{ animation: "dataFlow 1.5s ease-in-out forwards" }}
+              className="absolute w-0.5 h-16 blur-[1px] bg-white/20 rounded-full"
+              style={{ animation: "dataFlow 5s ease-in-out forwards" }}
             />
           )}
         </div>
@@ -137,7 +137,7 @@ const DataFlowBackground = () => {
         ].map((stat, i) => (
           <div
             key={i}
-            className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 px-3 py-2 flex items-center gap-2"
+            className="bg-gray-700/40 backdrop-blur-sm rounded-lg border border-white/10 px-3 py-2 flex items-center gap-2"
           >
             <stat.icon className={`w-3 h-3 ${stat.color}`} />
             <div>
@@ -149,7 +149,7 @@ const DataFlowBackground = () => {
       </div>
 
       {/* Database Status Grid */}
-      <div className="absolute top-[6%] right-[4%] w-[24%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
+      <div className="absolute top-[6%] right-[30%] w-[24%] bg-gray-700/40 backdrop-blur-sm rounded-xl border border-white/10 p-3">
         <div className="flex items-center gap-2 mb-2">
           <Database className="w-3 h-3 text-white/60" />
           <span className="text-white/70 text-[10px] font-medium">
@@ -162,8 +162,8 @@ const DataFlowBackground = () => {
               key={i}
               className={`p-2 rounded-lg border transition-all duration-300 ${
                 activeDb === i
-                  ? "bg-white/10 border-white/30"
-                  : "bg-white/5 border-white/10"
+                  ? "bg-gray-700 border-white/30"
+                  : "bg-gray-700/40 border-white/10"
               }`}
             >
               <div className="flex items-center gap-1.5 mb-1">
@@ -185,7 +185,7 @@ const DataFlowBackground = () => {
       </div>
 
       {/* Data Type Distribution */}
-      <div className="absolute top-[35%] left-[4%] w-[22%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
+      <div className="absolute top-[35%] left-[4%] w-[22%] bg-gray-700/40 backdrop-blur-sm rounded-xl border border-white/10 p-3">
         <div className="flex items-center gap-2 mb-2">
           <Layers className="w-3 h-3 text-white/60" />
           <span className="text-white/70 text-[10px] font-medium">
@@ -205,7 +205,7 @@ const DataFlowBackground = () => {
             </div>
           ))}
         </div>
-        <div className="mt-2 h-1.5 bg-white/10 rounded-full flex overflow-hidden">
+        <div className="mt-2 h-1.5 bg-gray-700/40 rounded-full flex overflow-hidden">
           {dataTypes.map((item, i) => (
             <div
               key={i}
@@ -217,7 +217,7 @@ const DataFlowBackground = () => {
       </div>
 
       {/* Live Transfer Monitor */}
-      <div className="absolute top-[35%] right-[4%] w-[24%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
+      <div className="absolute top-[20%] right-[4%] w-[24%] bg-gray-700/40 backdrop-blur-sm rounded-xl border border-white/10 p-3">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <Activity className="w-3 h-3 text-white/60" />
@@ -247,7 +247,7 @@ const DataFlowBackground = () => {
       </div>
 
       {/* Server Pipeline */}
-      <div className="absolute bottom-[28%] left-[4%] w-[34%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
+      <div className="absolute bottom-[28%] left-[24%] w-[34%] bg-gray-700/40 backdrop-blur-sm rounded-xl border border-white/10 p-3">
         <div className="flex items-center gap-2 mb-3">
           <Server className="w-3 h-3 text-white/60" />
           <span className="text-white/70 text-[10px] font-medium">
@@ -262,7 +262,7 @@ const DataFlowBackground = () => {
                   className={`w-8 h-8 rounded-lg flex items-center justify-center text-[8px] ${
                     i <= 3
                       ? "bg-emerald-500/20 border border-emerald-500/40 text-emerald-400"
-                      : "bg-white/10 border border-white/20 text-white/40"
+                      : "bg-gray-700/40 border border-white/20 text-white/40"
                   }`}
                 >
                   {i + 1}
@@ -275,7 +275,7 @@ const DataFlowBackground = () => {
                   >
                     <div
                       className={`w-8 h-0.5 ${
-                        i < 3 ? "bg-emerald-500/50" : "bg-white/10"
+                        i < 3 ? "bg-emerald-500/50" : "bg-gray-700/40"
                       }`}
                     />
                   </div>
@@ -287,7 +287,7 @@ const DataFlowBackground = () => {
       </div>
 
       {/* Storage Metrics */}
-      <div className="absolute bottom-[28%] right-[4%] w-[20%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
+      <div className="absolute bottom-[10%] right-[15%] w-[20%] bg-gray-700/40 backdrop-blur-sm rounded-xl border border-white/10 p-3">
         <div className="flex items-center gap-2 mb-2">
           <HardDrive className="w-3 h-3 text-white/60" />
           <span className="text-white/70 text-[10px] font-medium">STORAGE</span>
@@ -296,7 +296,7 @@ const DataFlowBackground = () => {
           <div className="text-white text-lg font-medium">847 GB</div>
           <div className="text-white/40 text-[8px]">of 1 TB used</div>
         </div>
-        <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+        <div className="h-2 bg-gray-700/40 rounded-full overflow-hidden">
           <div
             className="h-full bg-gradient-to-r from-cyan-400 to-violet-400 rounded-full"
             style={{ width: "84.7%" }}

@@ -97,7 +97,7 @@ const SecurityBackground = () => {
 
       {/* Scanning line */}
       <div
-        className="absolute left-0 right-0 h-1 bg-gradient-to-r from-transparent via-white/50 to-transparent"
+        className="absolute left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-white/50 to-transparent opacity-50"
         style={{ top: `${scanLine}%`, transition: "top 0.03s linear" }}
       />
 
@@ -125,7 +125,7 @@ const SecurityBackground = () => {
         ].map((stat, i) => (
           <div
             key={i}
-            className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 px-3 py-2 flex items-center gap-2"
+            className="bg-gray-700/40 backdrop-blur-sm rounded-lg border border-white/10 px-3 py-2 flex items-center gap-2"
           >
             <stat.icon className={`w-3 h-3 ${stat.color}`} />
             <div>
@@ -137,7 +137,7 @@ const SecurityBackground = () => {
       </div>
 
       {/* Central security shield */}
-      <div className="absolute left-[15%] top-1/2 -translate-y-1/2 ">
+      <div className="absolute left-[50%] top-1/2 -translate-x-1/2 -translate-y-1/2">
         <div className="relative">
           {/* Outer rings - centered */}
           <div className="absolute inset-0 animate-ripple rounded-full border-2 border-white/30 opacity-0" />
@@ -168,7 +168,7 @@ const SecurityBackground = () => {
       </div>
 
       {/* Security Log */}
-      <div className="absolute top-[6%] right-[4%] w-[26%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
+      <div className="absolute top-[6%] right-[4%] w-[26%] bg-gray-700/40 backdrop-blur-sm rounded-xl border border-white/10 p-3">
         <div className="flex items-center gap-2 mb-2">
           <Activity className="w-3 h-3 text-white/60" />
           <span className="text-white/70 text-[10px] font-medium">
@@ -196,7 +196,7 @@ const SecurityBackground = () => {
       </div>
 
       {/* Threat Analysis */}
-      <div className="absolute top-[38%] right-[4%] w-[26%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
+      <div className="absolute top-[65%] left-[4%] w-[26%] bg-gray-700/40 backdrop-blur-sm rounded-xl border border-white/10 p-3">
         <div className="flex items-center gap-2 mb-2">
           <AlertTriangle className="w-3 h-3 text-amber-400" />
           <span className="text-white/70 text-[10px] font-medium">
@@ -217,7 +217,7 @@ const SecurityBackground = () => {
       </div>
 
       {/* Compliance Status */}
-      <div className="absolute bottom-[28%] right-[4%] w-[22%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
+      <div className="absolute bottom-[10%] right-[4%] w-[22%] bg-gray-700/40 backdrop-blur-sm rounded-xl border border-white/10 p-3">
         <span className="text-white/70 text-[10px] font-medium">
           COMPLIANCE
         </span>
@@ -228,12 +228,14 @@ const SecurityBackground = () => {
               className={`px-2 py-1.5 rounded-lg border text-center ${
                 item.status
                   ? "bg-emerald-500/10 border-emerald-500/30"
-                  : "bg-red-500/10 border-red-500/30"
+                  : "bg-destructive/10 border-destructive/30"
               }`}
             >
               <span
                 className={`text-[9px] ${
-                  item.status ? "text-emerald-400" : "text-red-400"
+                  item.status
+                    ? "text-emerald-400"
+                    : "text-destructive-foreground"
                 }`}
               >
                 {item.name}
@@ -244,7 +246,7 @@ const SecurityBackground = () => {
       </div>
 
       {/* Scan Progress */}
-      <div className="absolute bottom-[28%] left-[4%] w-[26%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
+      <div className="absolute top-[28%] left-[4%] w-[26%] bg-gray-700/40 backdrop-blur-sm rounded-xl border border-white/10 p-3">
         <div className="flex items-center justify-between mb-2">
           <span className="text-white/70 text-[10px] font-medium">
             ACTIVE SCAN
@@ -264,7 +266,7 @@ const SecurityBackground = () => {
       </div>
 
       {/* Status indicators */}
-      <div className="absolute left-[42%] top-[20%] space-y-2">
+      <div className="absolute left-[25%] top-[50%] space-y-2">
         {["Firewall Active", "SSL/TLS 1.3", "2FA Enabled", "Rate Limited"].map(
           (status, i) => (
             <div

@@ -66,7 +66,7 @@ const AutomationBackground = () => {
   }));
 
   return (
-    <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 overflow-hidden">
+    <div className="absolute inset-0 bg-gradient-to-br from-[hsl(var(--gradient-6-start))] to-[hsl(var(--gradient-6-end))] overflow-hidden">
       {/* Animated grid background */}
       <div className="absolute inset-0 opacity-10">
         <svg className="w-full h-full">
@@ -107,7 +107,7 @@ const AutomationBackground = () => {
         ].map((card, i) => (
           <div
             key={i}
-            className="bg-white/5 backdrop-blur-sm rounded-lg border border-white/10 p-2 w-20"
+            className="bg-gray-700/40 backdrop-blur-sm rounded-lg border border-white/10 p-2 w-20"
           >
             <card.icon className="w-3 h-3 text-cyan-400 mb-1" />
             <div className="text-white text-xs font-medium">{card.value}</div>
@@ -140,7 +140,7 @@ const AutomationBackground = () => {
       </div>
 
       {/* Left side - Mini Table */}
-      <div className="absolute top-[22%] left-[4%] w-[28%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
+      <div className="absolute top-[22%] left-[4%] w-[28%] bg-gray-700/40 backdrop-blur-sm rounded-xl border border-white/10 p-3">
         <div className="flex items-center gap-2 mb-2">
           <Table2 className="w-3 h-3 text-white/60" />
           <span className="text-white/70 text-[10px] font-medium">ORDERS</span>
@@ -170,7 +170,7 @@ const AutomationBackground = () => {
       </div>
 
       {/* Center - Live Chart */}
-      <div className="absolute top-[22%] left-[35%] w-[30%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
+      <div className="absolute top-[22%] left-[35%] w-[30%] bg-gray-700/40 backdrop-blur-sm rounded-xl border border-white/10 p-3">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <BarChart3 className="w-3 h-3 text-white/60" />
@@ -196,7 +196,7 @@ const AutomationBackground = () => {
       </div>
 
       {/* Right side - Calendar */}
-      <div className="absolute top-[22%] right-[4%] w-[24%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
+      <div className="absolute top-[22%] right-[4%] w-[24%] bg-gray-700/40 backdrop-blur-sm rounded-xl border border-white/10 p-3">
         <div className="flex items-center gap-2 mb-2">
           <Calendar className="w-3 h-3 text-white/60" />
           <span className="text-white/70 text-[10px] font-medium">
@@ -225,7 +225,7 @@ const AutomationBackground = () => {
       </div>
 
       {/* Bottom left - Machine Status Grid */}
-      <div className="absolute bottom-[25%] left-[4%] w-[28%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
+      <div className="absolute bottom-[25%] left-[4%] w-[28%] bg-gray-700/40 backdrop-blur-sm rounded-xl border border-white/10 p-3">
         <div className="flex items-center gap-2 mb-2">
           <Cog className="w-3 h-3 text-white/60 animate-[spin_4s_linear_infinite]" />
           <span className="text-white/70 text-[10px] font-medium">
@@ -261,7 +261,7 @@ const AutomationBackground = () => {
       </div>
 
       {/* Bottom center - Shift Progress */}
-      <div className="absolute bottom-[25%] left-[35%] w-[30%] bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 p-3">
+      <div className="absolute bottom-[25%] left-[35%] w-[30%] bg-gray-700/40 backdrop-blur-sm rounded-xl border border-white/10 p-3">
         <div className="flex items-center justify-between mb-2">
           <span className="text-white/70 text-[10px] font-medium">
             SHIFT PROGRESS
@@ -295,7 +295,7 @@ const AutomationBackground = () => {
         {["API Gateway", "Database", "Cache", "Queue"].map((service, i) => (
           <div
             key={i}
-            className="flex items-center gap-2 bg-white/5 rounded-lg px-2 py-1.5 border border-white/10"
+            className="flex items-center gap-2 bg-gray-700/40 rounded-lg px-2 py-1.5 border border-white/10"
           >
             <div
               className={`w-1.5 h-1.5 rounded-full ${
