@@ -20,8 +20,8 @@ const LoginForm = () => {
     <Card className="w-full max-w-md p-10 bg-white/5 backdrop-blur border border-white/20 shadow-[10px_10px_30px_1px_hsl(var(--glass-shadow)/0.4)] relative z-10">
       <CardHeader className="space-y-1 text-center">
         <CardTitle className="text-2xl md:text-3xl font-bold text-white">
-          {/* Welcome Back */}
-          <img src={logo} className="h-12 mx-auto" />
+          Welcome Back
+          {/* <img src={logo} className="h-12 mx-auto" /> */}
         </CardTitle>
       </CardHeader>
       <CardContent>

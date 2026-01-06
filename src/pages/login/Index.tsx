@@ -117,7 +117,7 @@ const Index = () => {
               currentSection === index ? "opacity-100 z-10" : "opacity-0 z-0"
             }`}
           >
-            <div className="absolute h-full w-full bg-black/20 z-10 " />
+            <div className="absolute h-full w-full bg-black/40 z-10" />
             <Background />
           </div>
         ))}
