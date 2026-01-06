@@ -1,21 +1,11 @@
 import { useState, useRef, useEffect, useCallback } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import logo from "@/assets/images/logo.png";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import WorkflowBackground from "@/components/backgrounds/WorkflowBackground";
-import DataFlowBackground from "@/components/backgrounds/DataFlowBackground";
-import SecurityBackground from "@/components/backgrounds/SecurityBackground";
-import IntegrationBackground from "@/components/backgrounds/IntegrationBackground";
-import AnalyticsBackground from "@/components/backgrounds/AnalyticsBackground";
-import AutomationBackground from "@/components/backgrounds/AutomationBackground";
+import WorkflowBackground from "@/pages/login/backgrounds/WorkflowBackground";
+import DataFlowBackground from "@/pages/login/backgrounds/DataFlowBackground";
+import SecurityBackground from "@/pages/login/backgrounds/SecurityBackground";
+import IntegrationBackground from "@/pages/login/backgrounds/IntegrationBackground";
+import AnalyticsBackground from "@/pages/login/backgrounds/AnalyticsBackground";
+import AutomationBackground from "@/pages/login/backgrounds/AutomationBackground";
+import LoginForm from "./login-form";
 
 const backgroundComponents = [
   WorkflowBackground,
@@ -27,8 +17,6 @@ const backgroundComponents = [
 ];
 
 const Index = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [currentSection, setCurrentSection] = useState(0);
   const isScrollingRef = useRef(false);
   const currentSectionRef = useRef(0);
@@ -38,7 +26,6 @@ const Index = () => {
 
   const totalSections = backgroundComponents.length;
 
-  // Keep ref in sync with state
   useEffect(() => {
     currentSectionRef.current = currentSection;
   }, [currentSection]);
@@ -60,7 +47,6 @@ const Index = () => {
     [totalSections]
   );
 
-  // Auto-scroll functionality
   const startAutoScroll = useCallback(() => {
     if (autoScrollIntervalRef.current) {
       clearInterval(autoScrollIntervalRef.current);
@@ -71,10 +57,9 @@ const Index = () => {
         const nextSection = (currentSectionRef.current + 1) % totalSections;
         scrollToSection(nextSection);
       }
-    }, 40000); // Auto-scroll every 4 seconds
+    }, 4000);
   }, [scrollToSection, totalSections]);
 
-  // Pause auto-scroll on user interaction
   const pauseAutoScroll = useCallback(() => {
     isPausedRef.current = true;
 
@@ -84,13 +69,11 @@ const Index = () => {
 
     pauseTimeoutRef.current = setTimeout(() => {
       isPausedRef.current = false;
-    }, 50000); // Resume after 5 seconds
+    }, 5000);
   }, []);
 
-  // Handle wheel scroll
   const handleWheel = useCallback(
     (e: WheelEvent) => {
-      // Only handle wheel on left side (background area)
       const target = e.target as HTMLElement;
       if (target.closest(".login-form-container")) return;
 
@@ -106,7 +89,6 @@ const Index = () => {
     [scrollToSection, pauseAutoScroll]
   );
 
-  // Initialize auto-scroll
   useEffect(() => {
     startAutoScroll();
 
@@ -123,16 +105,10 @@ const Index = () => {
     };
   }, [handleWheel, startAutoScroll]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Login attempt:", { email, password });
-  };
-
   const CurrentBackground = backgroundComponents[currentSection];
 
   return (
     <div className="min-h-screen w-full relative overflow-hidden">
-      {/* Full-screen background with component slides */}
       <div className="fixed inset-0">
         {backgroundComponents.map((Background, index) => (
           <div
@@ -147,7 +123,6 @@ const Index = () => {
         ))}
       </div>
 
-      {/* Section indicators - left side */}
       <div className="fixed left-6 top-1/2 -translate-y-1/2 z-30 hidden md:flex flex-col gap-3">
         {backgroundComponents.map((_, index) => (
           <button
@@ -166,7 +141,6 @@ const Index = () => {
         ))}
       </div>
 
-      {/* Progress bar */}
       <div className="fixed top-0 left-0 right-0 z-30 h-1 bg-white/10">
         <div
           className="h-full bg-white/50 transition-all duration-300"
@@ -174,67 +148,12 @@ const Index = () => {
         />
       </div>
 
-      {/* Login form - fixed on right side */}
       <div className="login-form-container fixed inset-0 md:left-1/2 md:w-1/2 flex items-center justify-center z-20 p-4 md:p-8">
-        {/* Mobile gradient background */}
         <div className="absolute inset-0 md:hidden">
           <CurrentBackground />
         </div>
 
-        <Card className="w-full max-w-md p-10 bg-white/10 backdrop-blur border-2 border-dashed border-white/20 shadow-[10px_10px_30px_1px_hsl(var(--glass-shadow)/0.4)] relative z-10">
-          <CardHeader className="space-y-1 text-center">
-            <CardTitle className="text-2xl md:text-3xl font-bold text-white">
-              {/* Welcome Back */}
-              <img src={logo} className="h-12 mx-auto" />
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-2">
-                <Label htmlFor="email" className="text-white/90">
-                  Email
-                </Label>
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="name@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-white/40 focus:ring-white/20"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="password" className="text-white/90">
-                  Password
-                </Label>
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="bg-white/10 border-white/20 text-white placeholder:text-white/50 focus:border-white/40 focus:ring-white/20"
-                  required
-                />
-              </div>
-              <Button
-                type="submit"
-                className="w-full bg-white/20 hover:bg-white/30 text-white border border-white/30 backdrop-blur-sm transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,255,255,0.2)]"
-              >
-                Sign In
-              </Button>
-            </form>
-            <div className="mt-6 text-center">
-              <p className="text-white/60 text-sm">
-                Don't have an account?{" "}
-                <a href="#" className="text-white hover:underline">
-                  Sign up
-                </a>
-              </p>
-            </div>
-          </CardContent>
-        </Card>
+        <LoginForm />
       </div>
     </div>
   );
