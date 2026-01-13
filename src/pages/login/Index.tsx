@@ -57,7 +57,7 @@ const Index = () => {
         const nextSection = (currentSectionRef.current + 1) % totalSections;
         scrollToSection(nextSection);
       }
-    }, 4000);
+    }, 6000);
   }, [scrollToSection, totalSections]);
 
   const pauseAutoScroll = useCallback(() => {
@@ -69,7 +69,7 @@ const Index = () => {
 
     pauseTimeoutRef.current = setTimeout(() => {
       isPausedRef.current = false;
-    }, 5000);
+    }, 8000);
   }, []);
 
   const handleWheel = useCallback(
